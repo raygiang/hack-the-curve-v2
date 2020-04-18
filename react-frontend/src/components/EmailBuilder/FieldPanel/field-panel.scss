@@ -1,0 +1,11 @@
+.field-panel {
+    flex: 35%;
+    padding: 1rem;
+    border-left: 1px solid #000;
+    transition: 0.5s all;
+    min-height: 100px;
+
+    &__heading {
+        margin-bottom: 1rem;
+    }
+}
