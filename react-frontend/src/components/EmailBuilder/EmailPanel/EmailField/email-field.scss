@@ -1,0 +1,28 @@
+.email-field {
+    margin: 0.5rem 0;
+    padding: 1rem;
+    border: 1px solid #000;
+    user-select: none;
+    display: flex;
+
+    &__drag-handle {
+        display: flex;
+        width: 25px;
+        height: 100%;
+        margin: auto 1rem auto 0;
+
+        svg {
+            margin: auto;
+            font-size: 15px;
+        }
+    }
+
+    &__input {
+        width: 100%;
+    }
+
+    textarea {
+        resize: none;
+        height: 150px;
+    }
+}

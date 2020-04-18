@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import EmailPanel from './EmailPanel/EmailPanel';
 import FieldPanel from './FieldPanel/FieldPanel';
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -7,6 +7,7 @@ import './email-builder.scss';
 
 const EmailBuilder = () => {
     const [builderInfo, setBuilderInfo] = useState(builderData);
+    const count = useRef(0);
 
     const dragEndHandler = ({ destination, source, draggableId }) => {
         // If there is no destination or the destination is the same location
@@ -14,9 +15,8 @@ const EmailBuilder = () => {
             return;
         }
 
-        const startCol = builderInfo.columns[source.droppableId]
-        const finishCol = builderInfo.columns[destination.droppableId]
-        console.log(builderInfo.columns, destination.droppableId);
+        const startCol = builderInfo.columns[source.droppableId];
+        const finishCol = builderInfo.columns[destination.droppableId];
         const startFieldIds = [...startCol.fieldIds];
         
         // If destination is in same column as original
@@ -40,14 +40,11 @@ const EmailBuilder = () => {
         }
 
         // Moving to another list
-        startFieldIds.splice(source.index, 1);
-        const newStart = {
-            ...startCol,
-            fieldIds: startFieldIds,
-        }
-
         const finishFieldIds = [...finishCol.fieldIds];
-        finishFieldIds.splice(destination.index, 0, draggableId);
+        const origField = builderInfo.fields[draggableId];
+        let newId = origField.id + '-' + count.current;
+        count.current++;
+        finishFieldIds.splice(destination.index, 0, newId);
         const newFinish = {
             ...finishCol,
             fieldIds: finishFieldIds,
@@ -55,9 +52,16 @@ const EmailBuilder = () => {
 
         setBuilderInfo({
             ...builderInfo,
+            fields: {
+                ...builderInfo.fields,
+                [newId]: {
+                    ...origField,
+                    type: origField.id,
+                    id: newId,
+                },
+            },
             columns: {
                 ...builderInfo.columns,
-                [newStart.id]: newStart,
                 [newFinish.id]: newFinish,
             }
         })
@@ -73,7 +77,7 @@ const EmailBuilder = () => {
                         const column = builderInfo.columns[columnId];
                         const fields = column.fieldIds.map(fieldId => builderInfo.fields[fieldId]);
 
-                        if(columnId === 'email') {
+                        if(columnId === 'email-layout') {
                             return <EmailPanel key={columnId} column={column} fields={fields} />
                         }
                         else {

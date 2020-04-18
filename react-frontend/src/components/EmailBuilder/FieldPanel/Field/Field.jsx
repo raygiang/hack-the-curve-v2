@@ -3,7 +3,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import './field.scss';
 
 const Field = (props) => {
-    const {field, index} = props;
+    const {field, index, shouldRenderClone} = props;
     const {id, content} = field;
 
     const setDraggableStyle = (isDragging, draggableStyle) => ({
@@ -16,24 +16,28 @@ const Field = (props) => {
     });
 
     return (
-        <Draggable
-            draggableId={id}
-            index={index}
-        >
-            {(provided, snapshot) => {
-                // console.log(provided.draggableProps);
-                return (
-                <div
-                    className="field"
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    style={setDraggableStyle(snapshot.isDragging, provided.draggableProps.style)}
-                >
-                    {content}
-                </div>
-            )}}
-        </Draggable>
+        shouldRenderClone
+        ?
+            <div className="field-copied-placeholder">
+                {content}
+            </div>
+        :
+            <Draggable
+                draggableId={id}
+                index={index}
+            >
+                {(provided, snapshot) => (
+                    <div
+                        className="field"
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={setDraggableStyle(snapshot.isDragging, provided.draggableProps.style)}
+                    >
+                        {content}
+                    </div>
+                )}
+            </Draggable>
     )
 }
 
