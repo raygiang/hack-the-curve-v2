@@ -36,6 +36,7 @@ const FieldPanel = (props) => {
             droppableId={column.id}
             isDropDisabled={true}
             renderClone={getRenderClone}
+            type="Field"
         >
             {(provided, snapshot) => (
                 <section className="field-panel"

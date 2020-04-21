@@ -2,10 +2,15 @@
     flex: 75%;
     padding: 1rem;
     transition: 0.5s all;
-    min-height: 100px;
     background-color: lightyellow;
+    display: flex;
+    flex-direction: column;
 
     &__heading {
         margin-bottom: 1rem;
+    }
+
+    &__field-container {
+        flex: 100%;
     }
 }
