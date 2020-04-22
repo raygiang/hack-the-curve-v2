@@ -6,7 +6,7 @@ import LayoutBox from './LayoutBox/LayoutBox';
 import './layout-area.scss';
 
 const LayoutArea = (props) => {
-    const { builderInfo, layout, index, isEditing } = props;
+    const { builderInfo, layout, index, isEditing, layoutData } = props;
 
     /**
      * Set the style of this email field while a drag is being performed
@@ -14,11 +14,34 @@ const LayoutArea = (props) => {
     const setDraggableStyle = (isDragging, draggableStyle) => ({
         userSelect: "none",
         margin: "0 0 0.5rem 0",
+        opacity: layout.picked ? 1 : layoutData.isSelecting === layout.id ? 1 : 0.5,
       
-        background: isDragging ? "lightgreen" : "lavender",
+        background: isDragging ? "lightgreen" : layoutData.isSelecting === layout.id ? "#FFBE7D" : "lavender",
       
         ...draggableStyle
     });
+
+    const getRenderComponent = (width, index) => {
+        if(layout.picked) {
+            return (
+                <LayoutBox
+                    key={index}
+                    builderInfo={builderInfo}
+                    width={width}
+                    layoutId={layout.id}
+                    index={index}
+                    isEditing={isEditing}
+                />
+            )
+        }
+        else {
+            return(
+                <div key={index} className="layout-area__deactivated-message" nodekey={layout.id}>
+                    Click to Add a Layout
+                </div>
+            )
+        }
+    }
 
     return (
         <Draggable
@@ -38,14 +61,7 @@ const LayoutArea = (props) => {
                         </span>
                         <div className="layout-area__droppable-area" nodekey={layout.id}>
                             {builderInfo.layoutTypes[layout.layout].map((width, index) => (
-                                <LayoutBox
-                                    key={index}
-                                    builderInfo={builderInfo}
-                                    width={width}
-                                    layoutId={layout.id}
-                                    index={index}
-                                    isEditing={isEditing}
-                                />
+                                getRenderComponent(width, index)
                             ))}
                         </div>
                     </div>

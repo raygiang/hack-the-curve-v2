@@ -3,7 +3,6 @@ import '../options.scss';
 
 const HeadingOptions = (props) => {
     const { selectedField, updateField, removeField } = props;
-    console.log(selectedField);
     
     const onChangeHandler = (e) => {
         if(e.target.name === "heading-type") {
@@ -21,13 +20,13 @@ const HeadingOptions = (props) => {
         for(let i = 1; i <= 6; i++) {
             headingOptions.push(
                 <div key={i} className="heading-option">
-                    <span>{selectedField.id}</span>
                     <input
                         type="radio"
                         id={"h" + i}
                         name="heading-type"
                         value={i}
-                        defaultChecked={i === parseInt(selectedField["heading-type"])}
+                        checked={i === parseInt(selectedField["heading-type"])}
+                        onChange={onChangeHandler}
                     />
                     <label htmlFor={"h" + i}>H{i}</label>
                 </div>
@@ -44,7 +43,7 @@ const HeadingOptions = (props) => {
     return (
         <section className="heading-options">
             <h2 className="heading-options__heading">Heading Options</h2>
-            <form action="" onChange={onChangeHandler}>
+            <form action="">
                 <fieldset className="heading-type-container">
                     <legend>Heading Type</legend>
                         {generateHeadingOptions()}

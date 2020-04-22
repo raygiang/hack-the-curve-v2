@@ -40,28 +40,55 @@ const LayoutBox = (props) => {
         const id = emailField.id;
 
         if(type === 'heading') {
-            return(<HeadingField fieldId={id} field={emailField} isEditing={isEditing} currVal={currVal} setCurrVal={setCurrVal} width={width} />);
+            return(
+                <HeadingField
+                    fieldId={id}
+                    field={emailField}
+                    layoutId={layoutId}
+                    isEditing={isEditing}
+                    currVal={currVal}
+                    setCurrVal={setCurrVal}
+                    width={width}
+                />
+            );
         }
         else if(type === 'paragraph') {
-            return(<ParagraphField fieldId={id} field={emailField} isEditing={isEditing} currVal={currVal} setCurrVal={setCurrVal} width={width} />);
+            return(
+                <ParagraphField
+                    fieldId={id}
+                    field={emailField}
+                    layoutId={layoutId}
+                    isEditing={isEditing}
+                    currVal={currVal}
+                    setCurrVal={setCurrVal}
+                    width={width}
+                />
+            );
         }
         else if(type === 'image') {
             return(
-                <input className="image-field" id="image" type="file" nodekey={id} style={{width: width, flex: width}} />
+                <input
+                    className="image-field"
+                    id="image"
+                    type="file"
+                    layoutkey={layoutId}
+                    nodekey={id}
+                    style={{width: width, flex: width}}
+                />
             );
         }
         else {
-            return(<div className="video-field" nodekey={id} style={{width: width, flex: width}}>INSERT SEVERAL IFRAMES HERE</div>)
+            return(<div className="video-field" layoutkey={layoutId} nodekey={id} style={{width: width, flex: width}}>INSERT SEVERAL IFRAMES HERE</div>)
         }
     }
 
     
-        if(currentField) {
-            return getEmailField();
-        }
-        else {
-            return getDroppableField();
-        }
+    if(currentField) {
+        return getEmailField();
+    }
+    else {
+        return getDroppableField();
+    }
 
 }
 

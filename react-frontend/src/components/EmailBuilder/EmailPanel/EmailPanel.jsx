@@ -5,7 +5,7 @@ import LayoutArea from './LayoutArea/LayoutArea';
 import './email-panel.scss';
 
 const EmailPanel = (props) => {
-    const { column, fields, builderInfo, isEditing, setEditData, setLayoutData } = props;
+    const { column, fields, builderInfo, isEditing, setEditData, layoutData, setLayoutData } = props;
     const node = useRef();
 
     /**
@@ -22,19 +22,21 @@ const EmailPanel = (props) => {
 
             if(fieldRegex.test(e.target.className) && e.target.attributes.nodekey) {
                 let fieldId = e.target.attributes.nodekey.value;
-                setEditData({ isEditing: null, selectedField: null});
                 setEditData({ isEditing: fieldId, selectedField: builderInfo.fields[fieldId] });
+
+                if(e.target.attributes.layoutkey) {
+                    let layoutId = e.target.attributes.layoutkey.value;
+                    setLayoutData({ isSelecting: layoutId, selectedLayout: builderInfo.layouts[layoutId] });
+                }
             }
             else {
                 setEditData({ isEditing: null, selectedField: null});
+                setLayoutData({ isSelecting: null, selectedLayout: null });
             }
 
             if(layoutRegex.test(e.target.className) && e.target.attributes.nodekey) {
                 let layoutId = e.target.attributes.nodekey.value;
                 setLayoutData({ isSelecting: layoutId, selectedLayout: builderInfo.layouts[layoutId] });
-            }
-            else {
-                setLayoutData({ isSelecting: null, selectedLayout: null });
             }
         };
 
@@ -60,7 +62,7 @@ const EmailPanel = (props) => {
                     <div className="email-panel__field-container" ref={node}>
                         {
                             fields.map((layout, index) => (
-                                <LayoutArea key={layout.id} builderInfo={builderInfo} layout={layout} index={index} isEditing={isEditing} />
+                                <LayoutArea key={layout.id} builderInfo={builderInfo} layout={layout} index={index} isEditing={isEditing} layoutData={layoutData} />
                             ))
                         }
                         {provided.placeholder}

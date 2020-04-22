@@ -2,7 +2,7 @@ import React from 'react';
 import '../email-field.scss';
 
 const HeadingField = (props) => {
-    const { fieldId, field, isEditing, currVal, setCurrVal, width } = props;
+    const { fieldId, field, layoutId, isEditing, currVal, setCurrVal, width } = props;
 
     const onChangeHandler = (e) => {
         setCurrVal(e.target.value);
@@ -12,37 +12,37 @@ const HeadingField = (props) => {
         switch(parseInt(field["heading-type"])) {
             case 1:
                 return (
-                    <h1 className="heading-field__input-message" nodekey={fieldId}>
+                    <h1 className="heading-field__input-message" layoutkey={layoutId} nodekey={fieldId}>
                         {currVal ? currVal : 'Click to Edit Content'}
                     </h1>
                 )
             case 2:
                 return (
-                    <h2 className="heading-field__input-message" nodekey={fieldId}>
+                    <h2 className="heading-field__input-message" layoutkey={layoutId} nodekey={fieldId}>
                         {currVal ? currVal : 'Click to Edit Content'}
                     </h2>
                 )
             case 3:
                 return (
-                    <h3 className="heading-field__input-message" nodekey={fieldId}>
+                    <h3 className="heading-field__input-message" layoutkey={layoutId} nodekey={fieldId}>
                         {currVal ? currVal : 'Click to Edit Content'}
                     </h3>
                 )
             case 4:
                 return (
-                    <h4 className="heading-field__input-message" nodekey={fieldId}>
+                    <h4 className="heading-field__input-message" layoutkey={layoutId} nodekey={fieldId}>
                         {currVal ? currVal : 'Click to Edit Content'}
                     </h4>
                 )
             case 5:
                 return (
-                    <h5 className="heading-field__input-message" nodekey={fieldId}>
+                    <h5 className="heading-field__input-message" layoutkey={layoutId} nodekey={fieldId}>
                         {currVal ? currVal : 'Click to Edit Content'}
                     </h5>
                 )
             default:
                 return (
-                    <h6 className="heading-field__input-message" nodekey={fieldId}>
+                    <h6 className="heading-field__input-message" layoutkey={layoutId} nodekey={fieldId}>
                         {currVal ? currVal : 'Click to Edit Content'}
                     </h6>
                 )
@@ -70,8 +70,10 @@ const HeadingField = (props) => {
         if(fieldId === isEditing) {
             return (
                 <input
+                    id={fieldId}
                     className="heading-field__input"
                     type="text"
+                    layoutkey={layoutId}
                     nodekey={fieldId}
                     placeholder="Type Heading Here"
                     defaultValue={currVal}
@@ -86,7 +88,7 @@ const HeadingField = (props) => {
     }
 
     return (
-        <div className="heading-field" nodekey={fieldId} style={{ width: width, flex: width }}>
+        <div className="heading-field" layoutkey={layoutId} nodekey={fieldId} style={{ width: width, flex: width }}>
             {renderField()}
         </div>
     )

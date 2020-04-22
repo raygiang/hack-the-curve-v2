@@ -13,13 +13,6 @@ export const builderData = {
             picked: false,
             layouts: {"layout-0": null},
         },
-        'layout2': {
-            id: 'layout2',
-            content: 'Click to Select a Layout',
-            layout: 0,
-            picked: false,
-            layouts: {"layout-0": null},
-        }
     },
     layoutTypes: {
         0: ["100%"],
@@ -30,12 +23,12 @@ export const builderData = {
         'email-layout': {
             id: 'email-layout',
             title: 'Email Layout',
-            fieldIds: ['layout','layout2'],
+            fieldIds: ['layout'],
         },
         'fields': {
             id: 'fields',
             title: 'Fields',
-            fieldIds: ['heading', 'paragraph', 'image', 'video']
+            fieldIds: ['heading', 'paragraph', 'image']
         },
     },
     columnOrder: ['email-layout', 'fields'],

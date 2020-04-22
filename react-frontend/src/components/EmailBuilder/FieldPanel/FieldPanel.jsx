@@ -4,7 +4,7 @@ import Field from './Field/Field';
 import './field-panel.scss';
 
 const FieldPanel = (props) => {
-    const { column, fields } = props;
+    const { column, fields, resetPicked, removeLayout } = props;
 
     const setDraggableStyle = (isDragging, draggableStyle) => ({
         userSelect: "none",
@@ -55,6 +55,14 @@ const FieldPanel = (props) => {
                             })
                         }
                         {provided.placeholder}
+                    </div>
+                    <div className="field-panel__button-container">
+                        <button className="field-panel__back-button" onClick={resetPicked}>
+                            Pick Another Layout
+                        </button>
+                        <button className="field-panel__delete-button" onClick={removeLayout}>
+                            Delete this Layout
+                        </button>
                     </div>
                 </section>
             )}
