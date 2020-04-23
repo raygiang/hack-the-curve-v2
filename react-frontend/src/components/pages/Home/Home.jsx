@@ -5,7 +5,7 @@ import './home.scss';
 const Home = () => {
     return (
         <main className="home-container">
-            <h1 className="home-container__heading">Super Duper Email Builder</h1>
+            <h1 className="home-container__heading">CityAxess - Email Builder</h1>
             <EmailBuilder />
         </main>
     );

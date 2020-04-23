@@ -6,13 +6,14 @@ const LayoutPanel = (props) => {
     
     const clickHandler = (e) => {
         let newLayouts = {};
-        for(let i = 0; i < layouts[e.target.value].length; i++) {
+        let index = e.target.value ? e.target.value : e.target.attributes.value.value; 
+        for(let i = 0; i < layouts[index].length; i++) {
             newLayouts[layoutData.selectedLayout.id + '-' + i] = null
         }
 
         let newSelectedLayout = {
             ...layoutData.selectedLayout,
-            "layout": e.target.value,
+            "layout": index,
             picked: true,
             layouts: newLayouts,
         };
@@ -22,7 +23,7 @@ const LayoutPanel = (props) => {
 
     const generateLayoutOptions = () => (
         Object.keys(layouts).map((id) => (
-            <div key={id} className="layout-option">
+            <div key={id} className="layout-panel__option">
                 {/* <input
                     type="radio"
                     id={`layout-option-${id}`}
@@ -31,7 +32,11 @@ const LayoutPanel = (props) => {
                     defaultChecked={layoutData.selectedLayout.layout.toString() === id}
                 />
                 <label htmlFor={`layout-option-${id}`}>{layouts[id]}</label> */}
-                <button className="layout-option__button" value={id} onClick={clickHandler}>{layouts[id]}</button>
+                <button className="layout-panel__option-button" value={id} onClick={clickHandler}>
+                    {layouts[id].map((layoutBlock, index) => (
+                        <div key={index} value={id} style={{width: layoutBlock, flex: layoutBlock}}>{layoutBlock}</div>
+                    ))}
+                </button>
             </div>
         ))
     );
