@@ -2,7 +2,7 @@ import React from "react";
 import "../../assets/styles/global.scss";
 
 // Import pages to route to
-import Home from "../pages/Home";
+import Home from "../pages/Home/Home";
 
 import { Switch, Route, withRouter } from "react-router-dom";
 

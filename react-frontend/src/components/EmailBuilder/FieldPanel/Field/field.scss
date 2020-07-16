@@ -1,0 +1,17 @@
+.field, .field-copied-placeholder {
+    margin: 0.5rem 0;
+    padding: 1rem;
+    border: 1px solid #000;
+    background-color: cyan;
+    user-select: none;
+}
+
+.field-copied-placeholder {
+    ~ div{
+        transform: none !important;
+    }
+
+    ~ [data-rbd-placeholder-context-id] {
+        display: none !important;
+    }
+}
